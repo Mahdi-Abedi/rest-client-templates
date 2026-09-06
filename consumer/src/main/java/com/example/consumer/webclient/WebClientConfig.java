@@ -1,46 +1,50 @@
 package com.example.consumer.webclient;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * Configuration class for creating a {@link WebClient} bean.
+ * Configuration class for creating a load-balanced {@link WebClient} bean.
  * <p>
- * Unlike RestClient/RestTemplate, WebClient is designed for reactive, non-blocking
- * communication. However, it can also be used in a blocking way by calling
- * {@code .block()} on the response (as shown in {@link ProviderWebClient}).
+ * WebClient is reactive and non-blocking. Even though this project uses a
+ * servlet-based web stack (spring-boot-starter-web), WebClient can still be used
+ * in a blocking way (via {@code .block()}) for synchronous calls.
  * </p>
  * <p>
- * <b>Note:</b> Because this project also includes {@code spring-boot-starter-web}
- * (servlet-based), the auto-configuration for WebClient is NOT activated.
- * Therefore, we manually create the builder and the WebClient bean.
+ * The {@code @LoadBalanced} annotation ensures that the builder uses
+ * {@code LoadBalancerExchangeFilterFunction} to resolve logical service names.
  * </p>
  *
  * @author Mahdi-Abedi
- * @since 1.0
+ * @since 2.0
  */
 @Configuration
 public class WebClientConfig {
 
     /**
-     * Creates a {@link WebClient.Builder} bean with a pre-configured base URL.
+     * Creates a load-balanced {@link WebClient.Builder}.
      *
-     * @return the builder instance
+     * @return a load-balanced WebClient.Builder
      */
     @Bean
+    @LoadBalanced
     public WebClient.Builder webClientBuilder() {
-        return WebClient.builder().baseUrl("http://localhost:8081");
+        return WebClient.builder();
     }
 
     /**
-     * Creates a {@link WebClient} bean using the builder.
+     * Creates a {@link WebClient} bean with a base URL set to "http://provider".
+     * The injected builder is the load-balanced one.
      *
-     * @param builder the WebClient.Builder (injected from the method above)
+     * @param builder the load-balanced WebClient.Builder
      * @return a configured WebClient
      */
     @Bean
     public WebClient webClient(WebClient.Builder builder) {
-        return builder.build();
+        return builder
+                .baseUrl("http://provider")
+                .build();
     }
 }

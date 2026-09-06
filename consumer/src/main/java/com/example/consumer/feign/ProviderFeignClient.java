@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Feign client interface for consuming the provider service.
  * Feign simplifies HTTP client development with declarative annotations.
  * <p>
- * The {@code name} attribute is used for service discovery (when using Eureka),
- * and {@code url} specifies the fixed endpoint for standalone usage.
+ * The {@code name} attribute is used for service discovery (when using Eureka).
+ * Since no {@code url} is provided, Feign will resolve the service name "provider"
+ * via the configured discovery client (Eureka) and apply load balancing.
  * </p>
  *
  * @author Mahdi-Abedi
- * @since 1.0
+ * @since 2.0
  */
-@FeignClient(name = "provider-service", url = "http://localhost:8081")
+@FeignClient(name = "provider")
 public interface ProviderFeignClient {
 
     /**

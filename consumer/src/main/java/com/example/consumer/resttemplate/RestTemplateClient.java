@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateClient {
 
     /** Base URL of the provider service. */
-    public static final String PROVIDER_URL = "http://localhost:8081";
+    public static final String PROVIDER_URL = "http://provider";
 
     /** The RestTemplate bean (injected from {@link RestTemplateConfig}). */
     public final RestTemplate restTemplate;
