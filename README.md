@@ -196,7 +196,7 @@ This project is provided as a template – you are free to use and modify it for
 
 ### بررسی کلی
 
-این پروژه یک **تمپلیت** برای میکروسرویس مصرف‌کننده است که **چهار روش متفاوت** برای فراخوانی REST API در اپلیکیشن Spring Boot را نشان می‌دهد:
+این پروژه یک **تمپلیت** برای میکروسرویس consumer است که **چهار روش متفاوت** برای فراخوانی REST API در اپلیکیشن Spring Boot را نشان می‌دهد:
 
 1. **OpenFeign** – کلاینت اعلانی (Spring Cloud)
 2. **RestClient** – کلاینت همگام مدرن (Spring Boot 3.2+)
@@ -266,11 +266,11 @@ cd consumer
 mvn spring-boot:run
 ```
 
-سرویس مصرف‌کننده روی `http://localhost:8080` شروع به کار می‌کند.
+سرویس consumer روی `http://localhost:8080` شروع به کار می‌کند.
 
 #### مرحله ۳: تست نقاط پایانی
 
-پس از اجرای هر دو اپلیکیشن، می‌توانید نقاط پایانی زیر را فراخوانی کنید:
+پس از اجرای هر دو اپلیکیشن، می‌توانید end-point ها زیر را فراخوانی کنید:
 
 | نوع کلاینت       | آدرس                                                        |
 |-------------------|-------------------------------------------------------------|
@@ -280,7 +280,7 @@ mvn spring-boot:run
 | WebClient         | `GET http://localhost:8080/api/web-client/instance`         |
 | Http Interface    | `GET http://localhost:8080/api/http-interface/instance`     |
 
-همه‌ی نقاط پایانی یک رشته مانند زیر برمی‌گردانند:
+همه‌ی end-point ها یک رشته مانند زیر برمی‌گردانند:
 
 ```
 Instance served by Port: 8081. Instance ID: 3b8f4c2a-...
